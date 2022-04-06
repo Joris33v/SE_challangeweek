@@ -10,12 +10,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import com.almasb.fxgl.entity.Entity;
+import com.almasb.fxgl.physics.PhysicsComponent;
 
 public class Game extends GameApplication {
 
     private Entity player;
     private Entity player2;
-
+    private PhysicsComponent physics;
 
     @Override
     protected void initSettings(GameSettings gameSettings) {
@@ -48,6 +49,12 @@ public class Game extends GameApplication {
 
     @Override
     protected void initInput(){
+        var transform = player.getTransformComponent();
+        FXGL.onKey(KeyCode.W, () -> {
+            if(transform.getY() > player.getTransformComponent().getY()){
+                player.translateY(-1);
+            }
+        });
 
         FXGL.onKey(KeyCode.A, () -> {
             player.translateX(-5);
@@ -55,6 +62,10 @@ public class Game extends GameApplication {
 
         FXGL.onKey(KeyCode.D, () -> {
             player.translateX(5);
+        });
+
+        FXGL.onKey(KeyCode.I, () -> {
+            physics.setVelocityY(-400);
         });
 
         FXGL.onKey(KeyCode.J, () -> {
