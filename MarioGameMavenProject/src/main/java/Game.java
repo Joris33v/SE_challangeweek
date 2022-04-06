@@ -27,7 +27,7 @@ public class Game extends GameApplication {
     protected void initGame(){
         player = FXGL.entityBuilder()
                 .at(400,400)
-                .viewWithBBox("goomba.png")
+//                .viewWithBBox("goomba.png")
                 .scale(0.2, 0.2)
                 .with(new CollidableComponent(true))
                 .type(EntityTypes.PLAYER)
