@@ -17,8 +17,8 @@ public class Game extends GameApplication {
 
     @Override
     protected void initSettings(GameSettings gameSettings) {
-        gameSettings.setWidth(800);
-        gameSettings.setHeight(800);
+        gameSettings.setWidth(1300);
+        gameSettings.setHeight(900);
         gameSettings.setTitle("Test");
         gameSettings.setVersion("1.0");
     }
@@ -46,19 +46,19 @@ public class Game extends GameApplication {
     @Override
     protected void initInput(){
         FXGL.onKey(KeyCode.W, () -> {
-            player.translateY(-1);
+            player.translateY(-5);
         });
 
         FXGL.onKey(KeyCode.A, () -> {
-            player.translateX(-1);
+            player.translateX(-5);
         });
 
         FXGL.onKey(KeyCode.S, () -> {
-            player.translateY(1);
+            player.translateY(5);
         });
 
         FXGL.onKey(KeyCode.D, () -> {
-            player.translateX(1);
+            player.translateX(5);
         });
     }
 
