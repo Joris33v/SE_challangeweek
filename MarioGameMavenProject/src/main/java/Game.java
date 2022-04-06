@@ -1,14 +1,11 @@
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
-import com.almasb.fxgl.dsl.EntityBuilder;
 import com.almasb.fxgl.dsl.FXGL;
-import com.almasb.fxgl.dsl.handlers.CollectibleHandler;
 import com.almasb.fxgl.entity.components.CollidableComponent;
 import com.almasb.fxgl.physics.CollisionHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import com.almasb.fxgl.entity.Entity;
 
 public class Game extends GameApplication {
@@ -21,13 +18,14 @@ public class Game extends GameApplication {
         gameSettings.setHeight(900);
         gameSettings.setTitle("Test");
         gameSettings.setVersion("1.0");
+        gameSettings.setMainMenuEnabled(true);
     }
 
     @Override
     protected void initGame(){
         player = FXGL.entityBuilder()
                 .at(400,400)
-//                .viewWithBBox("goomba.png")
+                .viewWithBBox("mario_recht_static.png")
                 .scale(0.2, 0.2)
                 .with(new CollidableComponent(true))
                 .type(EntityTypes.PLAYER)
