@@ -14,11 +14,13 @@ import com.almasb.fxgl.entity.Entity;
 public class Game extends GameApplication {
 
     private Entity player;
+    private Entity player2;
+
 
     @Override
     protected void initSettings(GameSettings gameSettings) {
-        gameSettings.setWidth(1300);
-        gameSettings.setHeight(900);
+        gameSettings.setWidth(500);
+        gameSettings.setHeight(500);
         gameSettings.setTitle("Test");
         gameSettings.setVersion("1.0");
     }
@@ -26,39 +28,41 @@ public class Game extends GameApplication {
     @Override
     protected void initGame(){
         player = FXGL.entityBuilder()
-                .at(400,400)
-//                .viewWithBBox("goomba.png")
+                .at(100,400)
+                .viewWithBBox("goomba.png")
                 .scale(0.2, 0.2)
                 .with(new CollidableComponent(true))
                 .type(EntityTypes.PLAYER)
                 .buildAndAttach();
-
-        FXGL.entityBuilder()
-                .at(200, 200)
-                .viewWithBBox(new Circle(5, Color.RED))
-                .with(new CollidableComponent(true))
-                .type(EntityTypes.STAR)
-                .buildAndAttach();
-
         FXGL.getGameScene().setBackgroundColor(Color.BLACK);
+
+        player2 = FXGL.entityBuilder()
+                .at(200,400)
+                .viewWithBBox("goomba.png")
+                .scale(0.2, 0.2)
+                .with(new CollidableComponent(true))
+                .type(EntityTypes.PLAYER2)
+                .buildAndAttach();
+        FXGL.getGameScene().setBackgroundColor(Color.WHITE);
     }
 
     @Override
     protected void initInput(){
-        FXGL.onKey(KeyCode.W, () -> {
-            player.translateY(-5);
-        });
 
         FXGL.onKey(KeyCode.A, () -> {
             player.translateX(-5);
         });
 
-        FXGL.onKey(KeyCode.S, () -> {
-            player.translateY(5);
-        });
-
         FXGL.onKey(KeyCode.D, () -> {
             player.translateX(5);
+        });
+
+        FXGL.onKey(KeyCode.J, () -> {
+            player2.translateX(-5);
+        });
+
+        FXGL.onKey(KeyCode.L, () -> {
+            player2.translateX(5);
         });
     }
 
