@@ -32,7 +32,7 @@ public class PlatformerFactory implements EntityFactory {
     @Spawns("background")
     public Entity newBackground(SpawnData data) {
         return entityBuilder()
-                .view(new ScrollingBackgroundView(texture("background/forest.png").getImage(), getAppWidth(), getAppHeight()))
+                .view(new ScrollingBackgroundView(texture("background/marioAchtergrond.png").getImage(), getAppWidth(), getAppHeight()))
                 .zIndex(-1)
                 .with(new IrremovableComponent())
                 .build();
