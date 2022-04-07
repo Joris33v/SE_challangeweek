@@ -22,9 +22,6 @@ import javafx.util.Duration;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 
-/**
- * @author Almas Baimagambetov (almaslvl@gmail.com)
- */
 public class LevelEndScene extends SubScene {
 
     private static final int WIDTH = 400;

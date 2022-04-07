@@ -24,7 +24,6 @@ public class MainLoadingScene extends LoadingScene {
 
         for (int i = 0; i < 3; i++) {
             var textDot = getUIFactoryService().newText(".", Color.BLACK, 46.0);
-
             hbox.getChildren().add(textDot);
 
             animationBuilder(this)

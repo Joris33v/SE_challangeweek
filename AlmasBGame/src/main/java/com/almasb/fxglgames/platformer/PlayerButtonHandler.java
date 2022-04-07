@@ -5,9 +5,6 @@ import com.almasb.fxgl.physics.CollisionHandler;
 
 import static com.almasb.fxgl.dsl.FXGL.getGameWorld;
 
-/**
- * @author Almas Baimagambetov (almaslvl@gmail.com)
- */
 public class PlayerButtonHandler extends CollisionHandler {
 
     public PlayerButtonHandler() {

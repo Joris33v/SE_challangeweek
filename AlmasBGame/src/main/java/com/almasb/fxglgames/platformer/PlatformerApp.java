@@ -26,10 +26,6 @@ import java.util.Map;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 
-
-/**
- * @author Almas Baimagambetov (almaslvl@gmail.com)
- */
 public class PlatformerApp extends GameApplication {
 
     private static final int MAX_LEVEL = 5;
@@ -115,7 +111,7 @@ public class PlatformerApp extends GameApplication {
     @Override
     protected void onPreInit() {
         getSettings().setGlobalMusicVolume(0.25);
-        loopBGM("BGM_dash_runner.wav");
+        loopBGM("hardemuziek.wav");
     }
 
     @Override
