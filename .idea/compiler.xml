@@ -7,12 +7,16 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="SE_challangeweek" />
-        <module name="MarioGame" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="MarioGame" target="17" />
       <module name="SE_challangeweek" target="17" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="SE_challangeweek" options="--add-exports java.datatransfer/java.awt=mario.main" />
+    </option>
   </component>
 </project>

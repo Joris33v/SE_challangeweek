@@ -112,9 +112,9 @@ public class LevelEndScene extends SubScene {
                     .interpolator(Interpolators.ELASTIC.EASE_OUT());
 
             // if last star animation
-            if (i == gradeBox.getChildren().size() - 1) {
-                builder = builder.onFinished(() -> isAnimationDone.setValue(true));
-            }
+//            if (i == gradeBox.getChildren().size() - 1) {
+//                builder = builder.onFinished(() -> isAnimationDone.setValue(true));
+//            }
 
             builder.translate(gradeBox.getChildren().get(i))
                     .from(new Point2D(0, -500))

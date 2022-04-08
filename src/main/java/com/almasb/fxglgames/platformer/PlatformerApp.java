@@ -9,6 +9,7 @@ import com.almasb.fxgl.app.scene.LoadingScene;
 import com.almasb.fxgl.app.scene.SceneFactory;
 import com.almasb.fxgl.app.scene.Viewport;
 import com.almasb.fxgl.core.util.LazyValue;
+import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.components.CollidableComponent;
@@ -18,6 +19,7 @@ import com.almasb.fxgl.input.view.KeyView;
 import com.almasb.fxgl.input.virtual.VirtualButton;
 import com.almasb.fxgl.physics.PhysicsComponent;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
@@ -39,13 +41,17 @@ public class PlatformerApp extends GameApplication {
     protected void initSettings(GameSettings settings) {
         settings.setWidth(1280);
         settings.setHeight(720);
-        settings.setSceneFactory(new SceneFactory() {
+        settings.setTitle("Super Mario");
+        settings.setVersion("1.0");
+        settings.setMainMenuEnabled(true);
+        settings.setSceneFactory(new MySceneFactory() {
             @Override
             public LoadingScene newLoadingScene() {
                 return new MainLoadingScene();
             }
         });
         settings.setApplicationMode(ApplicationMode.DEVELOPER);
+        settings.setSceneFactory(new MySceneFactory());
     }
 
     private LazyValue<LevelEndScene> levelEndScene = new LazyValue<>(() -> new LevelEndScene());
@@ -125,8 +131,6 @@ public class PlatformerApp extends GameApplication {
         player = null;
         nextLevel();
 
-        // player must be spawned after call to nextLevel, otherwise player gets removed
-        // before the update tick _actually_ adds the player to game world
         player = spawn("player", 50, 50);
 
         set("player", player);
@@ -137,6 +141,8 @@ public class PlatformerApp extends GameApplication {
         viewport.setBounds(-1500, 0, 250 * 70, getAppHeight());
         viewport.bindToEntity(player, getAppWidth() / 2, getAppHeight() / 2);
         viewport.setLazy(true);
+
+
     }
 
     @Override
@@ -161,7 +167,7 @@ public class PlatformerApp extends GameApplication {
         });
 
         onCollisionOneTimeOnly(EntityType.PLAYER, EntityType.DOOR_BOT, (player, door) -> {
-            levelEndScene.get().onLevelFinish();
+            //levelEndScene.get().onLevelFinish();
 
             // the above runs in its own scene, so fade will wait until
             // the user exits that scene
@@ -211,6 +217,16 @@ public class PlatformerApp extends GameApplication {
 
     @Override
     protected void initUI() {
+
+        Label myText = new Label("Hallo There");
+        myText.setStyle("-fx-text-fill: white");
+        myText.setTranslateX(50);
+        myText.setTranslateY(50);
+        myText.textProperty().bind(FXGL.getWorldProperties().intProperty("kills").asString());
+
+        FXGL.getGameScene().setBackgroundColor(Color.BLACK);
+        FXGL.getGameScene().addUINode(myText);
+
         if (isMobile()) {
             var dpadView = getInput().createVirtualDpadView();
             var buttonsView = getInput().createXboxVirtualControllerView();
