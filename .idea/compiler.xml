@@ -9,5 +9,8 @@
         <module name="MarioGame" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="MarioGame" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>
