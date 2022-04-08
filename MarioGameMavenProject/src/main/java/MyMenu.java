@@ -34,29 +34,60 @@ public class MyMenu extends FXGLMenu {
         var textGroep = createTextView("Groep Nr 6", 1050, 540, 20, Color.web("#79470f"));
         var startButton = createActionTexture("mainMenu/button", 65, 300, 300, 80, "start");
         var startText = createTextView("Start", 150, 315, 30, Color.web("#79470f"));
-        var optionButton = createActionTexture("mainMenu/button", 65, 400, 300, 80, "option");
-        var optionText = createTextView("Option", 150, 415, 30, Color.web("#79470f"));
-        var exitButton = createActionTexture("mainMenu/button", 65, 500, 300, 80, "exit");
-        var exitText = createTextView("Exit", 160, 515, 30, Color.web("#79470f"));
+        var exitButton = createActionTexture("mainMenu/button", 65, 400, 300, 80, "exit");
+        var exitText = createTextView("Exit", 140, 415, 30, Color.web("#79470f"));
+//        var uitlogButton = createActionTexture("mainMenu/button", 65, 500, 300, 80, "uitloggen");
+        var uitlogText = createTextView("Loguit", 150, 515, 30, Color.web("#79470f"));
 
         var usernameText = createTextView("Gebruikersnaam:", 390, 175, 30, Color.web("#af5e24"));
         var usernameEditText = createEditText(385,240,500,80,26);
         var passwordText = createTextView("Wachtwoord:", 390, 340, 30, Color.web("#af5e24"));
         var passwordEditText = createEditText(385,405,500,80,26);
-        var loginButton = createActionTexture("mainMenu/loginButton",485,550,350,80, "login");
-        VBox loginScherm = new VBox();
-        loginScherm.setTranslateX(0);
-        loginScherm.setTranslateY(0);
-        loginScherm.getChildren().addAll(background, usernameText,usernameEditText,passwordText,passwordEditText, loginButton);
-        VBox mainMenu = new VBox();
-        mainMenu.setTranslateX(0);
-        mainMenu.setTranslateY(0);
-        mainMenu.getChildren().addAll(background, sign, textSign, textGroep, startButton, startText, optionButton, optionText, exitButton, exitText);
-        loginButton = createActionTexture("mainMenu/loginButton",485,550,350,80, "login", usernameEditText.getText(),passwordEditText.getText(), loginScherm,mainMenu);
-        getContentRoot().getChildren().addAll(mainMenu);
+//        var loginButton = createActionTexture("mainMenu/loginButton",485,550,350,80, "login");
 
-        //getContentRoot().getChildren().addAll(background, usernameText,usernameEditText,passwordText,passwordEditText, loginButton);
+        Texture texture = FXGL.texture("mainMenu/loginButton.png");
+        Texture uitloggen = FXGL.texture("mainMenu/button.png");
+        uitloggen.setId("uitloggen");
+        uitloggen.setTranslateX(65);
+        uitloggen.setTranslateY(500);
+        uitloggen.setFitWidth(300);
+        uitloggen.setFitHeight(80);
+        uitloggen.setOnMouseClicked(e -> {
+            getContentRoot().getChildren().removeAll(background, sign, textSign, textGroep, startButton, startText, uitloggen, uitlogText, exitButton, exitText);
+            getContentRoot().getChildren().addAll(background, usernameText,usernameEditText,passwordText,passwordEditText, texture);
+            usernameEditText.setText("");
+            passwordEditText.setText("");
+
+        });
+        uitloggen.setOnMouseEntered(e -> buttonHoverTrue(uitloggen, 65, 500, 300, 80, "mainMenu/button_effected.png"));
+        uitloggen.setOnMouseExited(e -> buttonHoverFalse(uitloggen, 65, 500, 300, 80, "mainMenu/button.png"));
+
+
+
+        texture.setId("login");
+        texture.setTranslateX(485);
+        texture.setTranslateY(550);
+        texture.setFitWidth(350);
+        texture.setFitHeight(80);
+        texture.setOnMouseClicked(e -> {
+            if (usernameEditText.getText().toLowerCase(Locale.ROOT).equals("ipose") && passwordEditText.getText().toLowerCase(Locale.ROOT).equals("groep6")){
+
+                getContentRoot().getChildren().removeAll(background, usernameText,usernameEditText,passwordText,passwordEditText, texture);
+                getContentRoot().getChildren().addAll(background, sign, textSign, textGroep, startButton, startText, uitloggen, uitlogText, exitButton, exitText);
+
+            }else {
+                getContentRoot().getChildren().addAll(createTextView("Login Failed use (username:ipose), (password:groep6)",250,100,25,Color.RED));
+            }
+        });
+        texture.setOnMouseEntered(e -> buttonHoverTrue(texture, 485, 550, 350, 80, "mainMenu/loginButton_effected.png"));
+        texture.setOnMouseExited(e -> buttonHoverFalse(texture, 485, 550, 350, 80, "mainMenu/loginButton.png"));
+
+
+//        loginButton = createActionTexture("mainMenu/loginButton",485,550,350,80, "login", usernameEditText.getText(),passwordEditText.getText(), loginButton);
+        getContentRoot().getChildren().addAll(background, usernameText,usernameEditText,passwordText,passwordEditText, texture);
 //        getContentRoot().getChildren().addAll(background, sign, textSign, textGroep, startButton, startText, optionButton, optionText, exitButton, exitText);
+
+
 
 
     }
@@ -74,18 +105,6 @@ public class MyMenu extends FXGLMenu {
         return texture;
     }
 
-    protected final Texture createActionTexture(String url, int x, int y, int w, int h, String id, String username, String password, VBox login, VBox menu) {
-        Texture texture = FXGL.texture(url+".png");
-        texture.setId(id);
-        texture.setTranslateX(x);
-        texture.setTranslateY(y);
-        texture.setFitWidth(w);
-        texture.setFitHeight(h);
-        texture.setOnMouseClicked(e -> buttonClicked(texture, username, password,login,menu));
-        texture.setOnMouseEntered(e -> buttonHoverTrue(texture, x, y, w, h, url+"_effected.png"));
-        texture.setOnMouseExited(e -> buttonHoverFalse(texture, x, y, w, h, url+".png"));
-        return texture;
-    }
 
     public void buttonClicked(Texture texture){
         if (texture.getId().equals("start")){
@@ -105,13 +124,6 @@ public class MyMenu extends FXGLMenu {
 
         }else if (texture.getId().equals("exit")){
             fireExit();
-        }else if (texture.getId().equals("login")){
-            if (username.toLowerCase(Locale.ROOT).equals("ipose") && password.toLowerCase(Locale.ROOT).equals("groep6")){
-                login.setVisible(false);
-                menu.setVisible(true);
-            }else {
-
-            }
         }
     }
 
